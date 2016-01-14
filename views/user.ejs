@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>ようこそ <%= user_id %> さん</h1>
+
+    <a href="/verify" >SF認証</a><br>
+    <% if (is_verify) {  %>
+      <a href="/import" >データインポート</a>
+    <% } %>
+  </body>
+</html>

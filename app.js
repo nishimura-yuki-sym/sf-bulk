@@ -5,17 +5,19 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require("mongoose");
+var session = require('express-session');
+var MongoStore = require('connect-mongo/es5')(session);
 
 var routes = require('./routes/index');
 var user = require('./routes/user');
 var verify = require('./routes/verify');
-var import = require('./routes/import');
+var import_ = require('./routes/import');
 
 var app = express();
 
 mongoose.connect("mongodb://localhost/test");
 
-// view engine setup
+// view engine setu
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -25,12 +27,42 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+    secret: 'secret',
+    store: new MongoStore({
+        url: 'mongodb://localhost/test',
+        clear_interval: 60 * 60
+    }),
+    cookie: {
+        httpOnly: true,
+        maxAge: new Date(Date.now() + 60 * 60 * 1000)
+    }
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+var unless = function(p, middleware) {
+    return function(req, res, next) {
+        if (p === req.path) {
+            return next();
+        } else {
+            return middleware(req, res, next);
+        }
+    };
+};
+
 app.use('/', routes);
+app.use(unless('/', function(req, res, next){
+  console.log( req.session.user );
+  if( req.session.user == null){
+    res.redirect('/');
+  }else{
+    return next();
+  }
+}));
 app.use('/user', user);
 app.use('/verify', verify);
-app.use('/import', import);
+app.use('/import', import_);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

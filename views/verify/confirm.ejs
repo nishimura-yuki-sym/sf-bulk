@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>再認証確認</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>再認証確認</h1>
+    <p>現在のユーザ <%= sf_user_id %> の認証情報を破棄して別のユーザとして連携しますか？</p><br>
+    <a href="/verify/to" >はい</a><br>
+    <a href="/user" >いいえ</a>
+  </body>
+</html>

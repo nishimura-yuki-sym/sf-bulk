@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Salesforce Import</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Salesforceにデータをアップロードします</h1>
+
+    <h2>アップロード</h2>
+    <form action="/import" method="post" enctype="multipart/form-data" >
+      <input type="file" name="input_file" > <br>
+      <input type="submit" value="送信" >
+    </form> 
+
+    <h2>実行中リスト</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>番号</th><th>名前</th><th>開始時間</th><th>状況</th>
+        </tr>
+      </thead>
+      <tdata>
+        <tr>
+          <td>1</td><td>test</td><td>2016/01/12 12:08:23</td><td>エエカンジ</td>
+        </tr>
+      </tdata>
+    </table>
+
+  </body>
+</html>

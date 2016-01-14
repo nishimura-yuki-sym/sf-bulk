@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Salesforce BulkAPI テスト</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-
-  	<h2>アップロード</h2>
-    <form action="/" method="post" enctype="multipart/form-data" >
-    	<input type="file" name="input_file" > <br>
-		<input type="submit" value="送信" >
-    </form>	
+    <h1>ログイン</h1>
+    <form action="/login" method="post">
+        <input type="text" name="userid">ユーザ名</input><br>
+        <input type="text" name="password">パスワード</input><br>
+        <input type="submit" value="ログイン" />
+    </form>
 
   </body>
 </html>
